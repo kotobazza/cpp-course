@@ -1,7 +1,7 @@
 # CICD для CPP
 
 + Задачи
-    + Как использовать ClangFormat в VSCode?
+    + ~~Как использовать ClangFormat в VSCode?~~
         + По идее, даже clang-format для системы не нужен - `Ctrl+Shift+I`
     + ~~Использование GTest вместо libboost~~
         + Просто вставлен как FetchContent и подключен по мануалу в интернете
