@@ -1,8 +1,38 @@
 # CICD для CPP
 
 + Задачи
-    + Использование GTest вместо libboost
     + Как использовать ClangFormat в VSCode?
+        + По идее, даже clang-format для системы не нужен - `Ctrl+Shift+I`
+    + ~~Использование GTest вместо libboost~~
+        + Просто вставлен как FetchContent и подключен по мануалу в интернете
+
+```Cmake
+include(FetchContent)
+FetchContent_Declare(
+  googletest
+  GIT_REPOSITORY https://github.com/google/googletest.git
+  GIT_TAG main  
+)
+
+
+
+target_link_libraries(
+  test_version
+  GTest::gtest_main
+  helloworld
+)
+
+
+enable_testing()
+
+add_test(test_version test_version)
+
+include(GoogleTest)
+gtest_discover_tests(test_version)
+```
+
+
+    
 
 
 
