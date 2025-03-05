@@ -12,12 +12,58 @@
 + Ошибка верхнего уровня
     + Собранный CPack пакет содержит gmock и gtest
         + Явное решение - использование `git submodule`
+        + Дополнительные проблемы с целями
+            + Команда `install()` позволяет определить процесс установки бинарных и небинарных файлов в систему конечного пользователя. 
+            + У меня каким-то образом тестовый бинарник также добавился в систему, что привело к проблемам (опять)
+                + Понадобилось просто исключить тестовую цель как цель для установок
     + **Желание найти решение внутри Cmake**
+    + Что случилось? 
+        + Оказывается, если использовать библиотеки вроде gtest для проведения тестирований работы бинарника тестов, то эти библиотеки начинают автоматически включаться и в окончательный пакет сборки модуля CPack
+            + У самого CMake нет возможности сказать CPack использовать только отдельные бинарники и либы для сборки пакета - он соберет все цели сборки в один пакет все равно
+        + Отличительный способ - использование `git submodule`
+            + Дополнительный репозиторий для сборки подключается к репозиторию со сборкой CMake
+            + Компоненты gtest начинают восприниматься как отдельные части, которые можно ИСКЛЮЧИТЬ ИЗ СБОРКИ
+                + Делается внутри `add_subdirectory(... EXCLUDE_FROM_ALL)` - подпроект удаляется как зависимость для всех целей
+            + Проблема в том, что сборка самого проекта в таком случае становится архисложной
+        + Что значит "интерфейсная библиотека?"
+
+
+
++ CMake (googletest)
+```bash
+git submodule add <href>
+```
+
+```cmake
+add_subdirectory(external/googletest EXCLUDE_FROM_ALL)
+
+# Создаем интерфейсную библиотеку для gtest
+add_library(GTest::GTest INTERFACE IMPORTED)
+target_include_directories(GTest::GTest INTERFACE ${GTEST_INCLUDE_DIRS})
+target_link_directories(GTest::GTest INTERFACE ${GTEST_LIBRARY_DIR})
+target_link_libraries(GTest::GTest INTERFACE gtest)
+
+# Создаем интерфейсную библиотеку для gtest_main
+add_library(GTest::Main INTERFACE IMPORTED)
+target_include_directories(GTest::Main INTERFACE ${GTEST_INCLUDE_DIRS})
+target_link_directories(GTest::Main INTERFACE ${GTEST_LIBRARY_DIR})
+target_link_libraries(GTest::Main INTERFACE gtest_main)
+
+
+target_link_libraries(test_version PRIVATE GTest::Main helloworld)
+
+# Включение тестирования
+enable_testing()
+add_test(test_version test_version)
+
+include(GoogleTest)
+gtest_discover_tests(test_version)
+```
 
 
 
 
-```Cmake
+```Cmake (уже не рабочий)
 include(FetchContent)
 FetchContent_Declare(
   googletest

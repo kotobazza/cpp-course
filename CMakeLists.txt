@@ -54,7 +54,6 @@ endif()
 # Установка целевых файлов
 install(TARGETS helloworld_cli RUNTIME DESTINATION bin COMPONENT cli)
 install(TARGETS helloworld LIBRARY DESTINATION lib COMPONENT lib)
-install(TARGETS test_version RUNTIME DESTINATION bin COMPONENT tests)
 
 # Настройки CPack
 set(CPACK_PACKAGE_NAME "helloworld")
