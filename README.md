@@ -6,6 +6,17 @@
     + ~~Использование GTest вместо libboost~~
         + Просто вставлен как FetchContent и подключен по мануалу в интернете
 
+
+
+
++ Ошибка верхнего уровня
+    + Собранный CPack пакет содержит gmock и gtest
+        + Явное решение - использование `git submodule`
+    + **Желание найти решение внутри Cmake**
+
+
+
+
 ```Cmake
 include(FetchContent)
 FetchContent_Declare(
@@ -18,7 +29,7 @@ FetchContent_Declare(
 
 target_link_libraries(
   test_version
-  GTest::gtest_main
+  GTest::gtest_main  ./ciadpi --disorder 4 --auto=torst --tlsrec 4+s
   helloworld
 )
 
