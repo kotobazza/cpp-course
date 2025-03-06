@@ -2,18 +2,20 @@
 
 #include "ip_filter.h"
 
+//TODO: Правильное оформление тестов с выводом информации, что же не так
+
 TEST(SplitTest, HandlesEmptyStringUsingDot)
 {
     std::vector<std::string> result = split("", '.');
     ASSERT_EQ(result.size(), 1);
-    EXPECT_EQ(result[0], "");
+    EXPECT_EQ(result[0], "") << "Result value: " << result[0];
 }
 
 TEST(SplitTest, HandlesStringWithoutDelimeter)
 {
-    std::vector<std::string> result = split("11", '1');
+    std::vector<std::string> result = split("11", '.');
     ASSERT_EQ(result.size(), 1);
-    EXPECT_EQ(result[0], "11");
+    EXPECT_EQ(result[0], "11") << "Result value: " << result[0];
 }
 
 
@@ -97,7 +99,7 @@ TEST(FilterAny, HandlesNumber)
     std::list<std::vector<std::string>> ips = {{"1", "11", "46", "11"}, {"23", "11", "11", "11"}};
     auto result = filter_any(ips, 46);
 
-    ASSERT_EQ(result.size(), 1);
+    ASSERT_EQ(result.size(), 1) << "Result length: "<<result.size();
 
     EXPECT_EQ(result.front(), ips.front());
 }
