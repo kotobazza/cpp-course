@@ -3,6 +3,8 @@
 #include <list>
 
 
+#define UNUSED(variable) (void)variable
+
 std::vector<std::string> split(const std::string &str, char d);
 
 std::list<std::vector<std::string>> lexicographically_sort(const std::vector<std::vector<std::string>>& ips);

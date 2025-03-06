@@ -1,3 +1,5 @@
+#pragma once
+
 #include <cassert>
 #include <cstdlib>
 #include <iostream>
@@ -5,13 +7,9 @@
 #include <vector>
 #include <list>
 #include <cstdlib>
+#include "ip_filter.h"
 
-// ("",  '.') -> [""]
-// ("11", '.') -> ["11"]
-// ("..", '.') -> ["", "", ""]
-// ("11.", '.') -> ["11", ""]
-// (".11", '.') -> ["", "11"]
-// ("11.22", '.') -> ["11", "22"]
+
 std::vector<std::string> split(const std::string &str, char d)
 {
     std::vector<std::string> r;
@@ -75,12 +73,11 @@ std::list<std::vector<std::string>> lexicographically_sort(const std::vector<std
 }
 
 
-std::list<std::vector<std::string>> filter(const std::list<std::vector<std::string>>& ips, int octet_index, int octet_value)
+std::list<std::vector<std::string>> filter(const std::list<std::vector<std::string>>& ips, ulong octet_index, int octet_value)
 {
     std::list<std::vector<std::string>> r {};
 
     if(ips.size() == 0) return r;
-    if(octet_index < 0) return r;
     if((*ips.begin()).size() <= octet_index) return r;
 
     for(auto& ip:ips){
@@ -181,5 +178,10 @@ int main(int argc, char const *argv[])
         std::cerr << e.what() << std::endl;
     }
 
+    UNUSED(argc);
+    UNUSED(argv);
+
     return 0;
+
+
 }
