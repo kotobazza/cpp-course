@@ -1,8 +1,6 @@
-#include <cassert>
 #include <cstdlib>
 #include <string>
 #include <vector>
-#include <list>
 #include "ip_filter.h"
 
 
@@ -27,8 +25,6 @@ std::vector<std::string> split(const std::string &str, char d)
 
 
 
-//TODO: отказаться от std::list 
-    //+ Вектора лучше оптимизированы для Copy Elision
 //TODO: Сделать все преобразования строк в числа с в самом начале выполнения алгоритма
 std::vector<std::vector<std::string>> lexicographically_sort(const std::vector<std::vector<std::string>>& ips)
 {
