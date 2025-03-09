@@ -73,7 +73,7 @@ TEST(SorterTest, HandlesMultipleElements)
 
 TEST(FilterTest, HandlesOneAtPosOne)
 {
-    std::list<std::vector<std::string>> ips = {{"1", "11", "11", "11"}, {"23", "11", "11", "11"}};
+    std::vector<std::vector<std::string>> ips = {{"1", "11", "11", "11"}, {"23", "11", "11", "11"}};
     auto result = filter(ips, 0, 1);
        
     ASSERT_EQ(result.size(), 1);
@@ -84,7 +84,7 @@ TEST(FilterTest, HandlesOneAtPosOne)
 
 TEST(FilterTest, HandlesAtPosOneAndThree)
 {
-    std::list<std::vector<std::string>> ips = {{"1", "11", "105", "11"}, {"23", "11", "11", "11"}};
+    std::vector<std::vector<std::string>> ips = {{"1", "11", "105", "11"}, {"23", "11", "11", "11"}};
     auto result = filter(filter(ips, 0, 1), 2, 105);
 
     ASSERT_EQ(result.size(), 1);
@@ -96,7 +96,7 @@ TEST(FilterTest, HandlesAtPosOneAndThree)
 
 TEST(FilterAny, HandlesNumber)
 {
-    std::list<std::vector<std::string>> ips = {{"1", "11", "46", "11"}, {"23", "11", "11", "11"}};
+    std::vector<std::vector<std::string>> ips = {{"1", "11", "46", "11"}, {"23", "11", "11", "11"}};
     auto result = filter_any(ips, 46);
 
     ASSERT_EQ(result.size(), 1) << "Result length: "<<result.size();

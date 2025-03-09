@@ -27,10 +27,13 @@ std::vector<std::string> split(const std::string &str, char d)
 
 
 
-
-std::list<std::vector<std::string>> lexicographically_sort(const std::vector<std::vector<std::string>>& ips)
+//TODO: отказаться от std::list 
+    //+ Вектора лучше оптимизированы для Copy Elision
+//TODO: Сделать все преобразования строк в числа с в самом начале выполнения алгоритма
+std::vector<std::vector<std::string>> lexicographically_sort(const std::vector<std::vector<std::string>>& ips)
 {
-    std::list<std::vector<std::string>>r;
+
+    std::vector<std::vector<std::string>>r;
 
     if (ips.empty()) return r;
 
@@ -69,9 +72,9 @@ std::list<std::vector<std::string>> lexicographically_sort(const std::vector<std
 }
 
 
-std::list<std::vector<std::string>> filter(const std::list<std::vector<std::string>>& ips, ulong octet_index, int octet_value)
+std::vector<std::vector<std::string>> filter(const std::vector<std::vector<std::string>>& ips, ulong octet_index, int octet_value)
 {
-    std::list<std::vector<std::string>> r {};
+    std::vector<std::vector<std::string>> r {};
 
     if(ips.size() == 0) return r;
     if((*ips.begin()).size() <= octet_index) return r;
@@ -86,9 +89,9 @@ std::list<std::vector<std::string>> filter(const std::list<std::vector<std::stri
 }
 
 
-std::list<std::vector<std::string>> filter_any(const std::list<std::vector<std::string>>& ips, int octet_value)
+std::vector<std::vector<std::string>> filter_any(const std::vector<std::vector<std::string>>& ips, int octet_value)
 {
-    std::list<std::vector<std::string>> r {};
+    std::vector<std::vector<std::string>> r {};
 
     if(ips.size() == 0) return r;
 

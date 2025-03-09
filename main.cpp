@@ -15,7 +15,7 @@ int main(int argc, char const *argv[])
             ip_pool.push_back(split(v.at(0), '.'));
         }
 
-        std::list<std::vector<std::string>> ip_pool2;
+        std::vector<std::vector<std::string>> ip_pool2;
 
         ip_pool2 = lexicographically_sort(ip_pool);
 
